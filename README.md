@@ -1,1 +1,2 @@
-# Swagger2
+Liveness and readiness with actuator
+Deployemnt file for kubelet.
