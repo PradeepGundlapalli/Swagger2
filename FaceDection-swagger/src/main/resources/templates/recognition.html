@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Webcam Face Recognition</title>
+    <script src="https://cdn.jsdelivr.net/npm/opencv4nodejs/build/opencv.js"></script>
+</head>
+<body>
+    <h2>Webcam Face Recognition</h2>
+    <div id="videoContainer">
+        <video id="videoElement" autoplay="true" width="640" height="480"></video>
+        <canvas id="canvasElement" width="640" height="480"></canvas>
+    </div>
+
+    <script th:inline="javascript">
+        const video = document.getElementById("videoElement");
+        const canvas = document.getElementById("canvasElement");
+        const context = canvas.getContext("2d");
+
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function (stream) {
+                video.srcObject = stream;
+            })
+            .catch(function (error) {
+                console.log("Error accessing webcam:", error);
+            });
+
+        video.addEventListener("play", function () {
+            setInterval(function () {
+                context.drawImage(video, 0, 0, 640, 480);
+                // Perform any additional client-side image processing or display updates
+                // ...
+            }, 100);
+        });
+    </script>
+</body>
+</html>
